@@ -10,6 +10,21 @@
 <body>
 <h1>Posts ({{ count($posts) }})</h1>
 
+@if($errors->any())
+    <ul>
+        @foreach($errors->all() as $error)
+            <li>{{ $error }}</li>
+        @endforeach
+    </ul>
+@endif
+
+<form action="{{ route('posts.store') }}" method="post">
+    @csrf
+    <input type="text" name="title"> <br>
+    <textarea name="body"></textarea> <br>
+    <button>Add Post</button>
+</form>
+
 @foreach($posts as $post)
     <ul>
         <li>
@@ -21,9 +36,14 @@
                     <button type="submit">Delete</button>
                 </form>
             </div>
+            <div>
+                <a href="{{ route('posts.edit', $post) }}">Edit</a>
+            </div>
         </li>
     </ul>
 @endforeach
+
+{{ $posts->links() }}
 
 
 </body>
