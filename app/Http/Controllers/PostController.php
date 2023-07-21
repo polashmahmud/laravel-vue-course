@@ -22,7 +22,7 @@ class PostController extends Controller
     {
         Post::create($request->validated());
 
-        return back();
+        return back()->with('success', 'Post Created!');
     }
 
     public function edit(Post $post)
@@ -41,6 +41,6 @@ class PostController extends Controller
     {
         $post->delete();
 
-        return back();
+        return back()->with('danger', 'Post Deleted!');
     }
 }

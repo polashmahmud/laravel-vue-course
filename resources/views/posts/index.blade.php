@@ -6,9 +6,29 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Posts</title>
+    <style>
+        .alert {
+            position: absolute;
+            background: red;
+            padding: 10px;
+            border-radius: 5px;
+            right: 10px;
+            top: 10px;
+            min-width: 200px;
+            color: white;
+        }
+    </style>
 </head>
 <body>
 <h1>Posts ({{ count($posts) }})</h1>
+
+@if(session()->has('success'))
+    <div class="alert">{{ session('success') }}</div>
+@endif
+
+@if(session()->has('danger'))
+    <div class="alert">{{ session('danger') }}</div>
+@endif
 
 @if($errors->any())
     <ul>
@@ -44,6 +64,18 @@
 @endforeach
 
 {{ $posts->links() }}
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        setTimeout(function () {
+            let alertElement = document.querySelector(".alert")
+
+            if (alertElement) {
+                alertElement.style.display = 'none'
+            }
+        }, 3000)
+    })
+</script>
 
 
 </body>
